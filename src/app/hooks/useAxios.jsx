@@ -13,7 +13,7 @@ export const api = axios.create({
  * @title Axios Hook (Custom Hook)
  * @description Axios를 React 상태 관리와 함께 사용하기 위한 Custom Hook
  */
-export default function useAxios(props) {
+export default function useAxios() {
   const handlers = {
     onRequest: async (config) => {
       return config;
