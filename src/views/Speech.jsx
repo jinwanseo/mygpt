@@ -12,6 +12,7 @@ const talk = new SpeechSynthesisUtterance();
 
 function SpeechComponent() {
   useGptMessage();
+
   const { messages, setMessages, answers, setAnswers } = useGptMessage();
 
   const {
