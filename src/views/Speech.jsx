@@ -9,6 +9,7 @@ import SpeechRecognition, {
 import * as gptAPI from "../app/api/gpt";
 // 텍스트 읽어주는 기본 API
 const talk = new SpeechSynthesisUtterance();
+talk.rate = 0.8;
 
 function SpeechComponent() {
   useGptMessage();
