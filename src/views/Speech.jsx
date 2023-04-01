@@ -1,9 +1,8 @@
 import { Mic } from "@mui/icons-material";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { blueGrey, green, teal } from "@mui/material/colors";
+import { blueGrey, green } from "@mui/material/colors";
 import useGptMessage from "app/hooks/useGptMessage";
 import { getCompKey } from "app/utils/mixin";
-import { useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -21,12 +20,10 @@ function SpeechComponent() {
     resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
-  const [answer, setAnswer] = useState();
 
   // Handlers
   const handlers = {
     onSpeechStart: () => {
-      setAnswer(null);
       SpeechRecognition.startListening({
         continuous: true,
         language: "ko",
@@ -39,8 +36,7 @@ function SpeechComponent() {
         ...messages,
         {
           role: "user",
-          content: "안녕하세요",
-          //  transcript
+          content: transcript,
         },
       ];
       setMessages(newMessages);

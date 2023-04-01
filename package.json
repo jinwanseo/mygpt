@@ -1,5 +1,6 @@
 {
   "name": "mygpt",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,7 +16,6 @@
     "openai": "^3.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.43.9",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
