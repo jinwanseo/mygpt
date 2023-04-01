@@ -1,21 +1,18 @@
-import { Stack, Typography } from "@mui/material";
-import { teal } from "@mui/material/colors";
+import { Container, Stack } from "@mui/material";
 import React from "react";
 import { Outlet } from "react-router-dom";
+import Footer from "views/dashboard/tools/Footer";
+import Header from "views/dashboard/tools/Header";
 
-function Root(props) {
+function Root() {
   return (
-    <Stack alignItems={"center"}>
-      <Typography
-        variant="suttitle1"
-        color={teal[900]}
-        fontSize={20}
-        fontWeight={700}
-      >
-        내손안의 GPT
-      </Typography>
-      <Outlet />
-    </Stack>
+    <Container>
+      <Stack spacing={1} pt={3}>
+        <Header />
+        <Outlet />
+        <Footer />
+      </Stack>
+    </Container>
   );
 }
 

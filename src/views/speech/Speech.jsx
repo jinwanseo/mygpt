@@ -4,11 +4,11 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import { useState } from "react";
-import SpeechBtn from "./speech/tools/SpeechBtn";
-import Answer from "./speech/tools/Answer";
-import Question from "./speech/tools/Question";
+import SpeechBtn from "./tools/SpeechBtn";
+import Answer from "./tools/Answer";
+import Question from "./tools/Question";
 
-import * as gptAPI from "../app/api/gpt";
+import * as gptAPI from "../../app/api/gpt";
 
 // 텍스트 읽어주는 기본 API
 const talk = new SpeechSynthesisUtterance();
