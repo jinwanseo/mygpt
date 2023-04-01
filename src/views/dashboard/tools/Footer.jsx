@@ -90,7 +90,10 @@ export default function Footer() {
             minHeight={80}
             sx={{ flexBasis: { xs: 200, md: "initial" } }}
           >
-            <img src="https://avatars.githubusercontent.com/u/89370593?v=4" />
+            <img
+              src="https://avatars.githubusercontent.com/u/89370593?v=4"
+              alt={"jinwaneo"}
+            />
           </AspectRatio>
           <CardContent>
             <Typography level="body2">Intro to the MUI ecosystem</Typography>
