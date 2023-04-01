@@ -20,6 +20,8 @@
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "react-speech-recognition": "^3.10.0",
+    "react-spinners": "^0.13.8",
+    "react-type-animation": "^3.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

@@ -1,140 +1,93 @@
-import { Mic } from "@mui/icons-material";
-import {
-  Button,
-  IconButton,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { blueGrey, green } from "@mui/material/colors";
+import { Stack } from "@mui/material";
 import useGptMessage from "app/hooks/useGptMessage";
-import { getCompKey } from "app/utils/mixin";
-import { useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import { useState } from "react";
+import SpeechBtn from "./speech/tools/SpeechBtn";
+import Answer from "./speech/tools/Answer";
+import Question from "./speech/tools/Question";
+
 import * as gptAPI from "../app/api/gpt";
+
 // 텍스트 읽어주는 기본 API
 const talk = new SpeechSynthesisUtterance();
 talk.rate = 0.93;
 
 function SpeechComponent() {
+  // Gpt 답변 Speak on
   useGptMessage();
-  const [data, setData] = useState("");
-
-  const { messages, setMessages, answers, setAnswers } = useGptMessage();
-
+  // STT 설정
   const {
     transcript,
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
+  // Gpt Message Store
+  const { messages, setMessages } = useGptMessage();
+  const [disabled, setDisabled] = useState();
+  const [recentAnswer, setRecentAnswer] = useState();
+  talk.onend = () => setDisabled(false);
 
   // Handlers
   const handlers = {
     onSpeechStart: () => {
+      setRecentAnswer(null);
       SpeechRecognition.startListening({
         continuous: true,
         language: "ko",
       });
     },
     onSpeechEnd: async () => {
+      // 비활성화 (GPT 답변 말하는 도중 누르지 못하게)
+      setDisabled(true);
+
       // 중지
       SpeechRecognition.stopListening();
 
-      setTimeout(async () => {
-        const newMessages = [
-          ...messages,
-          {
-            role: "user",
-            content: transcript,
-          },
-        ];
-        setMessages(newMessages);
-
-        // 업로드
-        const {
-          data: { choices },
-        } = await gptAPI.getAnswer(newMessages);
-
-        const newAnswers = [
-          ...answers,
-          ...choices.map((c) => c.message.content),
-        ];
-        setAnswers(newAnswers);
-        talk.text = newAnswers[newAnswers.length - 1];
-        window.speechSynthesis.speak(talk);
-
-        // 리셋
-        resetTranscript();
-      }, 300);
-    },
-    sendText: async () => {
+      // 메시지 리스트 저장 (기존 답변 목록 분석 후 새 답변 도출)
       const newMessages = [
         ...messages,
         {
           role: "user",
-          content: data,
+          content: transcript,
         },
       ];
       setMessages(newMessages);
 
-      // 업로드
+      // Chat Gpt - Server 통신
       const {
         data: { choices },
       } = await gptAPI.getAnswer(newMessages);
 
-      const newAnswers = [...answers, ...choices.map((c) => c.message.content)];
-      setAnswers(newAnswers);
-      talk.text = newAnswers[newAnswers.length - 1];
+      // 답변 상태 저장
+      setRecentAnswer(choices[0].message.content);
+      // 말하기 옵션
+      talk.text = choices[0].message.content;
       window.speechSynthesis.speak(talk);
+
+      // 질문 리셋
+      resetTranscript();
     },
   };
 
   if (!browserSupportsSpeechRecognition) {
     return <>지원하지 않는 브라우저!</>;
   }
+
   return (
     <Stack spacing={1} alignItems="center">
-      <Stack spacing={1}>
-        {messages?.map((message, idx) => (
-          <Typography key={idx}>{message?.content}</Typography>
-        ))}
-      </Stack>
-      <Stack direction="row" spacing={1}>
-        <TextField
-          size="small"
-          variant="outlined"
-          value={data}
-          onChange={(e) => setData(e.target.value)}
-        />
-        <Button size="small" variant="outlined" onClick={handlers.sendText}>
-          전송
-        </Button>
-      </Stack>
-
-      <Stack direction={"row"} spacing={1}>
-        <IconButton
-          size="large"
-          color={listening ? green["A200"] : blueGrey[400]}
-          sx={{
-            border: `2px solid ${listening ? green["A200"] : blueGrey[400]}`,
-            ":hover": {
-              scale: 1.1,
-            },
-          }}
-          onClick={listening ? handlers.onSpeechEnd : handlers.onSpeechStart}
-        >
-          <Mic fontSize="large" />
-        </IconButton>
-      </Stack>
-
-      <Stack spacing={1}>
-        {answers?.map((answer) => (
-          <Typography key={getCompKey()}>{answer}</Typography>
-        ))}
-      </Stack>
+      {/* 질문 */}
+      <Question message={transcript} />
+      {/* 질문 버튼 */}
+      <SpeechBtn
+        listening={listening}
+        disabled={disabled}
+        handlers={handlers}
+      />
+      {/* 답변 */}
+      <Answer recentAnswer={recentAnswer} />
     </Stack>
   );
 }
