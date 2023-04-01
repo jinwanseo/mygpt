@@ -38,7 +38,7 @@ function SpeechComponent() {
         // ...messages,
         {
           role: "user",
-          content: transcript,
+          content: "계란찜 하는 방법 좀 알려줘",
         },
       ];
       setMessages(newMessages);

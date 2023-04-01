@@ -6,7 +6,7 @@ export const BASE_URL = "https://api.openai.com";
 // Axios 모듈 기본 설정 (BaseUrl, 기본 header, 요청 제한 시간)
 export const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000,
+  timeout: 10000000,
   headers: {
     "Content-Type": "application/json",
     "OpenAI-Organization": process.env.REACT_APP_GPT_ORG,
