@@ -1,8 +1,15 @@
 import { Mic } from "@mui/icons-material";
-import { IconButton, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { blueGrey, green } from "@mui/material/colors";
 import useGptMessage from "app/hooks/useGptMessage";
 import { getCompKey } from "app/utils/mixin";
+import { useState } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -13,6 +20,7 @@ talk.rate = 0.93;
 
 function SpeechComponent() {
   useGptMessage();
+  const [data, setData] = useState("");
 
   const { messages, setMessages, answers, setAnswers } = useGptMessage();
 
@@ -34,11 +42,40 @@ function SpeechComponent() {
     onSpeechEnd: async () => {
       // 중지
       SpeechRecognition.stopListening();
+
+      setTimeout(async () => {
+        const newMessages = [
+          ...messages,
+          {
+            role: "user",
+            content: transcript,
+          },
+        ];
+        setMessages(newMessages);
+
+        // 업로드
+        const {
+          data: { choices },
+        } = await gptAPI.getAnswer(newMessages);
+
+        const newAnswers = [
+          ...answers,
+          ...choices.map((c) => c.message.content),
+        ];
+        setAnswers(newAnswers);
+        talk.text = newAnswers[newAnswers.length - 1];
+        window.speechSynthesis.speak(talk);
+
+        // 리셋
+        resetTranscript();
+      }, 300);
+    },
+    sendText: async () => {
       const newMessages = [
-        // ...messages,
+        ...messages,
         {
           role: "user",
-          content: "계란찜 하는 방법 좀 알려줘",
+          content: data,
         },
       ];
       setMessages(newMessages);
@@ -47,12 +84,11 @@ function SpeechComponent() {
       const {
         data: { choices },
       } = await gptAPI.getAnswer(newMessages);
+
       const newAnswers = [...answers, ...choices.map((c) => c.message.content)];
       setAnswers(newAnswers);
       talk.text = newAnswers[newAnswers.length - 1];
       window.speechSynthesis.speak(talk);
-      // 리셋
-      resetTranscript();
     },
   };
 
@@ -65,6 +101,17 @@ function SpeechComponent() {
         {messages?.map((message, idx) => (
           <Typography key={idx}>{message?.content}</Typography>
         ))}
+      </Stack>
+      <Stack direction="row" spacing={1}>
+        <TextField
+          size="small"
+          variant="outlined"
+          value={data}
+          onChange={(e) => setData(e.target.value)}
+        />
+        <Button size="small" variant="outlined" onClick={handlers.sendText}>
+          전송
+        </Button>
       </Stack>
 
       <Stack direction={"row"} spacing={1}>
