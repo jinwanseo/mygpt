@@ -79,9 +79,9 @@ function SpeechComponent() {
   return (
     <Stack spacing={1} alignItems="center">
       {/* 질문 */}
-
       <Question message={transcript} />
       {/* 답변 */}
+
       <Answer recentAnswer={recentAnswer} />
       {/* 질문 버튼 */}
       <SpeechBtn

@@ -14,7 +14,7 @@ SpeechBtn.propTypes = {
 
 function SpeechBtn({ listening, disabled, handlers }) {
   return (
-    <Stack direction={"row"} spacing={1}>
+    <Stack direction={"row"} spacing={1} sx={{ p: 1.5 }}>
       <IconButton
         size="large"
         sx={{

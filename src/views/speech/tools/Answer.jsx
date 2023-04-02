@@ -23,7 +23,7 @@ function Answer({ recentAnswer }) {
           />
         ) : (
           <Typography fontSize={21} color="neutral">
-            무엇을 도와드릴까요?
+            {"무엇을 도와드릴까요?"}
           </Typography>
         )}
       </Stack>
