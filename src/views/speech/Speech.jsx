@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Stack } from "@mui/joy";
 import useGptMessage from "app/hooks/useGptMessage";
 import SpeechRecognition, {
@@ -32,6 +32,7 @@ function SpeechComponent() {
 
   // Handlers
   const handlers = {
+    // 질문 시작
     onSpeechStart: () => {
       setRecentAnswer(null);
       SpeechRecognition.startListening({
@@ -39,6 +40,8 @@ function SpeechComponent() {
         language: "ko",
       });
     },
+
+    // 질문 전송
     onSpeechEnd: async () => {
       // 비활성화 (GPT 답변 말하는 도중 누르지 못하게)
       setDisabled(true);
@@ -72,6 +75,20 @@ function SpeechComponent() {
     },
   };
 
+  // 질문 취소
+  const onSpeechCancel = useCallback(() => {
+    // 비활성화 취소
+    setDisabled(false);
+    // 중지
+    SpeechRecognition.stopListening();
+    // 질문 리셋
+    resetTranscript();
+  }, [resetTranscript]);
+
+  useEffect(() => {
+    if (transcript?.includes("취소해줘")) onSpeechCancel();
+  }, [transcript, onSpeechCancel]);
+
   if (!browserSupportsSpeechRecognition) {
     return <>지원하지 않는 브라우저!</>;
   }
@@ -79,10 +96,11 @@ function SpeechComponent() {
   return (
     <Stack spacing={1} alignItems="center">
       {/* 질문 */}
-      <Question message={transcript} />
-      {/* 답변 */}
+      <Question message={transcript} listening={listening} />
 
+      {/* 답변 */}
       <Answer recentAnswer={recentAnswer} />
+
       {/* 질문 버튼 */}
       <SpeechBtn
         listening={listening}
