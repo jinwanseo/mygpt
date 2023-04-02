@@ -1,5 +1,5 @@
 import { Mic } from "@mui/icons-material";
-import { IconButton, Stack } from "@mui/material";
+import { IconButton, Stack } from "@mui/joy";
 import { blueGrey, teal } from "@mui/material/colors";
 import React from "react";
 import { MoonLoader, ScaleLoader } from "react-spinners";
@@ -19,6 +19,8 @@ function SpeechBtn({ listening, disabled, handlers }) {
         size="large"
         sx={{
           border: `2px solid ${listening ? teal["A400"] : blueGrey[300]}`,
+          borderRadius: 50,
+          p: 1,
           ":hover": {
             scale: 1.1,
           },

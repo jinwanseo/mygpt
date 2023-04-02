@@ -2,11 +2,13 @@ import React from "react";
 import { Box, Button, IconButton, Typography, Sheet } from "@mui/joy";
 import { ArrowForward } from "@mui/icons-material";
 import useTheme from "app/hooks/useTheme";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Credit: https://flutter.dev/
  */
 export default function Main() {
+  const navigator = useNavigate();
   const { theme, setTheme } = useTheme();
   return (
     <Box sx={{ position: "relative" }}>

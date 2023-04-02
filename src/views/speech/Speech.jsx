@@ -1,9 +1,9 @@
-import { Stack } from "@mui/material";
+import { useState } from "react";
+import { Stack } from "@mui/joy";
 import useGptMessage from "app/hooks/useGptMessage";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import { useState } from "react";
 import SpeechBtn from "./tools/SpeechBtn";
 import Answer from "./tools/Answer";
 import Question from "./tools/Question";
@@ -79,15 +79,16 @@ function SpeechComponent() {
   return (
     <Stack spacing={1} alignItems="center">
       {/* 질문 */}
+
       <Question message={transcript} />
+      {/* 답변 */}
+      <Answer recentAnswer={recentAnswer} />
       {/* 질문 버튼 */}
       <SpeechBtn
         listening={listening}
         disabled={disabled}
         handlers={handlers}
       />
-      {/* 답변 */}
-      <Answer recentAnswer={recentAnswer} />
     </Stack>
   );
 }

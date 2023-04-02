@@ -1,4 +1,4 @@
-import { Container, Stack } from "@mui/material";
+import { Container, Stack } from "@mui/joy";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "views/dashboard/tools/Footer";

@@ -1,8 +1,8 @@
-import { createTheme } from "@mui/material";
 import { ThemeProvider as MuiThemeProvider } from "@mui/joy";
 import useTheme from "app/hooks/useTheme";
 import React from "react";
 import PropTypes from "prop-types";
+import { createTheme } from "@mui/system";
 
 ThemeProvider.propTypes = {
   children: PropTypes.node.isRequired,

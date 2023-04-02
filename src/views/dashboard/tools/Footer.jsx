@@ -90,7 +90,8 @@ export default function Footer() {
             minHeight={80}
             sx={{ flexBasis: { xs: 200, md: "initial" } }}
           >
-            <img
+            <Box
+              component={"img"}
               src="https://avatars.githubusercontent.com/u/89370593?v=4"
               alt={"jinwaneo"}
             />
