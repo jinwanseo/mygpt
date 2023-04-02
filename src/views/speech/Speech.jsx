@@ -7,13 +7,16 @@ import SpeechRecognition, {
 import SpeechBtn from "./tools/SpeechBtn";
 import Answer from "./tools/Answer";
 import Question from "./tools/Question";
-
 import * as gptAPI from "../../app/api/gpt";
 
 // 텍스트 읽어주는 기본 API
 const talk = new SpeechSynthesisUtterance();
-talk.rate = 0.93;
+// 읽기 속도 0 ~ 1
+talk.rate = 0.92;
 
+/**
+ * @title Speech 컴포넌트 (Chat GPT 와 통신)
+ */
 function SpeechComponent() {
   // Gpt 답변 Speak on
   useGptMessage();
@@ -86,9 +89,11 @@ function SpeechComponent() {
   }, [resetTranscript]);
 
   useEffect(() => {
+    // "취소해줘" 말할시
     if (transcript?.includes("취소해줘")) onSpeechCancel();
   }, [transcript, onSpeechCancel]);
 
+  // 브라우저 미지원시
   if (!browserSupportsSpeechRecognition) {
     return <>지원하지 않는 브라우저!</>;
   }

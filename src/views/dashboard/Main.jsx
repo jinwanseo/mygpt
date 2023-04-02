@@ -38,7 +38,7 @@ export default function Main() {
               "& > *": { flexGrow: 1, fontWeight: "lg" },
             }}
           >
-            <Button sx={{ minWidth: 120 }} onClick={() => navigator("/")}>
+            <Button sx={{ minWidth: 120 }} onClick={() => navigator("/speech")}>
               시작하기
             </Button>
             <Button
@@ -48,6 +48,9 @@ export default function Main() {
                 "&:hover": { "--Button-gap": "0.75rem" },
                 "& span": { transition: "0.3s" },
               }}
+              onClick={() =>
+                (window.location.href = "https://github.com/jinwanseo/mygpt")
+              }
             >
               개발 문서
             </Button>

@@ -1,8 +1,7 @@
-import { Chip, Stack, Typography } from "@mui/joy";
 import React from "react";
+import { Chip, Stack, Typography } from "@mui/joy";
 import useTheme from "app/hooks/useTheme";
 import { StyledSheet } from "./Share";
-import { teal } from "@mui/material/colors";
 
 function Question({ message, listening }) {
   const { theme } = useTheme();
@@ -12,7 +11,7 @@ function Question({ message, listening }) {
       color={theme === "light" ? "primary" : "neutral"}
       variant="outlined"
       sx={{
-        backgroundColor: teal["A400"] + "20",
+        backgroundColor: "#1de9b620",
         cursor: "default",
         userSelect: "none",
       }}

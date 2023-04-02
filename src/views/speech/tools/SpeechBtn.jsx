@@ -1,6 +1,5 @@
 import { Mic } from "@mui/icons-material";
 import { IconButton, Stack } from "@mui/joy";
-import { blueGrey, teal } from "@mui/material/colors";
 import React from "react";
 import { MoonLoader, ScaleLoader } from "react-spinners";
 
@@ -18,7 +17,7 @@ function SpeechBtn({ listening, disabled, handlers }) {
       <IconButton
         size="large"
         sx={{
-          border: `2px solid ${listening ? teal["A400"] : blueGrey[300]}`,
+          border: `2px solid ${listening ? "#1de9b6" : "#90a4ae"}`,
           borderRadius: 50,
           p: 1,
           ":hover": {
@@ -29,10 +28,10 @@ function SpeechBtn({ listening, disabled, handlers }) {
         disabled={disabled}
       >
         {!listening && !disabled && (
-          <Mic sx={{ fontSize: 35 }} color={teal["A400"]} />
+          <Mic sx={{ fontSize: 35 }} color={"#1de9b6"} />
         )}
-        {listening && <ScaleLoader color={teal["A400"]} size={20} />}
-        {disabled && <MoonLoader color={teal["A400"]} size={20} />}
+        {listening && <ScaleLoader color={"#1de9b6"} size={20} />}
+        {disabled && <MoonLoader color={"#1de9b6"} size={20} />}
       </IconButton>
     </Stack>
   );
