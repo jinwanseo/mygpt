@@ -19,6 +19,9 @@ function Question({ message, listening }) {
     >
       <Stack spacing={2}>
         <Stack spacing={1} alignItems={message ? "flex-start" : "center"}>
+          <Typography fontSize={21} color="neutral">
+            {"무엇을 도와드릴까요?"}
+          </Typography>
           <Typography fontSize={21} color="success">
             {message ? message : "아래 버튼을 클릭하고 질문해주세요"}
           </Typography>
