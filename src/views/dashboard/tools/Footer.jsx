@@ -1,20 +1,5 @@
 import React from "react";
-import {
-  AspectRatio,
-  Box,
-  IconButton,
-  Card,
-  CardContent,
-  Chip,
-  Divider,
-  List,
-  ListSubheader,
-  ListItem,
-  ListItemDecorator,
-  ListItemButton,
-  Typography,
-  Sheet,
-} from "@mui/joy";
+import { Box, IconButton, Divider, Typography, Sheet } from "@mui/joy";
 
 import { GitHub, Instagram, WebAsset } from "@mui/icons-material";
 
