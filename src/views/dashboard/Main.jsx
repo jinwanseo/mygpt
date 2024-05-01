@@ -3,10 +3,19 @@ import { Box, Button, IconButton, Typography, Sheet } from "@mui/joy";
 import { ArrowForward } from "@mui/icons-material";
 import useTheme from "app/hooks/useTheme";
 import { useNavigate } from "react-router-dom";
+import usePath from "../../app/hooks/usePath";
 
 export default function Main() {
   const navigator = useNavigate();
   const { theme, setTheme } = useTheme();
+  const {setPath} = usePath();
+
+  const handlers = {
+      onLinkClick : () => {
+          setPath("speech")
+          navigator("/speech")
+      }
+  }
   return (
     <Box sx={{ position: "relative" }}>
       <Sheet
@@ -38,7 +47,7 @@ export default function Main() {
               "& > *": { flexGrow: 1, fontWeight: "lg" },
             }}
           >
-            <Button sx={{ minWidth: 120 }} onClick={() => navigator("/speech")}>
+            <Button sx={{ minWidth: 120 }} onClick={handlers.onLinkClick}>
               시작하기
             </Button>
             <Button

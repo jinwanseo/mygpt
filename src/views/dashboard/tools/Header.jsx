@@ -35,6 +35,7 @@ const StyledSheet = styled(Sheet)`
 export default function Header() {
   const { theme } = useTheme();
 
+
   return (
     <StyledSheet
       variant="solid"

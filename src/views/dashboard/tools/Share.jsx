@@ -92,6 +92,8 @@ export const HomeMenuList = ({ menus }) => {
     },
   };
 
+  console.log(path)
+
   return (
     <Box sx={{ flex: 1, display: "flex", gap: 1, px: 2 }}>
       <Chip
