@@ -1,4 +1,4 @@
-import { api } from "../hooks/useGptAxios";
+import { api } from "../hooks/useAxios";
 
 export const getAnswer_deprecated = (contents) => {
   return api({
