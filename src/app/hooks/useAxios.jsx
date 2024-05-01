@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "http://localhost:8000";
 
 // Axios 모듈 기본 설정 (BaseUrl, 기본 header, 요청 제한 시간)
 export const api = axios.create({

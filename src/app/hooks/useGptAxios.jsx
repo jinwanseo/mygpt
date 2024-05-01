@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 
-export const BASE_URL = "https://api.openai.com";
+export const BASE_URL = "http://localhost:8000/api/v1";
 
 // Axios 모듈 기본 설정 (BaseUrl, 기본 header, 요청 제한 시간)
 export const api = axios.create({
@@ -9,8 +9,6 @@ export const api = axios.create({
   timeout: 10000000,
   headers: {
     "Content-Type": "application/json",
-    "OpenAI-Organization": process.env.REACT_APP_GPT_ORG,
-    Authorization: `Bearer ${process.env.REACT_APP_GPT_KEY}`,
   },
 });
 

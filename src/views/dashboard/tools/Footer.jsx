@@ -26,6 +26,9 @@ export default function Footer() {
         mx: -3,
         my: -3,
         borderRadius: { xs: 0, sm: "xs" },
+          position: "absolute",
+          bottom: 0,
+          width: "100%"
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>

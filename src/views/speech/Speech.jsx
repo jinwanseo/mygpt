@@ -62,15 +62,15 @@ function SpeechComponent() {
       ];
       setMessages(newMessages);
 
-      // Chat Gpt - Server 통신
+      // ChatGpt - Server 통신
       const {
-        data: { choices },
-      } = await gptAPI.getAnswer(newMessages);
+        data: {result},
+      } = await gptAPI.getAnswer(transcript);
 
       // 답변 상태 저장
-      setRecentAnswer(choices[0].message.content);
+      setRecentAnswer(result);
       // 말하기 옵션
-      talk.text = choices[0].message.content;
+      talk.text = result;
       window.speechSynthesis.speak(talk);
 
       // 질문 리셋
@@ -99,7 +99,7 @@ function SpeechComponent() {
   }
 
   return (
-    <Stack spacing={1} alignItems="center">
+    <Stack spacing={1} alignItems="center"  >
       {/* 질문 */}
       <Question message={transcript} listening={listening} />
 

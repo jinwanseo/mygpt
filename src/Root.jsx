@@ -9,7 +9,7 @@ function Root() {
     <Container sx={{ px: 0 }}>
       <Stack spacing={1}>
         <Header />
-        <Box px={1}>
+        <Box px={1} >
           <Outlet />
         </Box>
         <Footer />
