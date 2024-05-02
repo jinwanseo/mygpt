@@ -4,14 +4,29 @@ services:
   frontend:
     image: jinwanseo/mygpt_front:latest
     ports:
-      - "80:3000"
+      - "3000:3000"  # 프론트엔드는 HTTPS를 사용할 것이므로 포트를 443으로 변경
     networks:
       - app_network
+    environment:
+      - REACT_APP_BACKEND_URL=https://backend:8000  # 백엔드 URL을 HTTPS로 설정
 
   backend:
     image: jinwanseo/mygpt_back:latest
     ports:
       - "8000:8000"
+    networks:
+      - app_network
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"  # HTTPS를 위해 443 포트 추가
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf  # Nginx 설정 파일 마운트
+    depends_on:
+      - frontend
+      - backend
     networks:
       - app_network
 
